@@ -1,30 +1,44 @@
 // =============================================================
-// CONFIGURACIÓN - CAMBIA ESTOS DATOS AQUÍ
+// BODA DE ALEXANDER & ASTRID - SCRIPT PRINCIPAL
 // =============================================================
+
 const CONFIG = {
     fechaBoda: new Date('2027-01-23T15:00:00'),
-    novios: 'Alexander y Astrid',
-    musica: 'assets/music/cancion.mp3',
+    novios: 'Alexander & Astrid',
+    idVideoYouTube: '98Akpf1ph2o',
+    archivoAudio: 'assets/audio/musica.mp3',
+    numeroWhatsAppNovio: '50232665826',
+    numeroWhatsAppNovia: '50247810905',
+    urlGoogleSheets: 'https://script.google.com/macros/s/AKfycbw5MfQHE5iVo-hzCxuEvRNZc3zXPF_Pqn6cpzkmq1d523vbC2muUdv18mVT5Ebfbqa3vA/exec',
     fotos: [
-        'assets/img/foto1.jpg',
-        'assets/img/foto2.jpg',
-        'assets/img/foto3.jpg',
-        'assets/img/foto4.jpg'
+        { src: 'assets/img/foto3.jpg', title: 'Bajo el Cielo Colonial' },
+        { src: 'assets/img/IMG_5490.png', title: 'El Sí, Para Siempre' },
+        { src: 'assets/img/dvdvd.jpeg', title: 'Amor Incondicional' },
+        { src: 'assets/img/foto1.jpg', title: 'Miradas Cómplices' },
+        { src: 'assets/img/foto4.jpg', title: 'Nuestros Pasos' },
+        { src: 'assets/img/foto2.jpg', title: 'Sonrisas y Amor' }
     ]
 };
 
 // =============================================================
-// 1. CUENTA REGRESIVA CON ANIMACIÓN
+// 1. CUENTA REGRESIVA
 // =============================================================
 function actualizarCuentaRegresiva() {
     const ahora = new Date().getTime();
     const distancia = CONFIG.fechaBoda.getTime() - ahora;
 
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
     if (distancia <= 0) {
-        document.getElementById('days').textContent = '00';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
         return;
     }
 
@@ -33,25 +47,22 @@ function actualizarCuentaRegresiva() {
     const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-    // Animar números cuando cambian
-    animarNumero('days', dias);
-    animarNumero('hours', horas);
-    animarNumero('minutes', minutos);
-    animarNumero('seconds', segundos);
+    animarNumero(daysEl, dias);
+    animarNumero(hoursEl, horas);
+    animarNumero(minutesEl, minutos);
+    animarNumero(secondsEl, segundos);
 }
 
-function animarNumero(id, valor) {
-    const elemento = document.getElementById(id);
-    const valorActual = parseInt(elemento.textContent);
-    if (valorActual !== valor) {
-        elemento.textContent = String(valor).padStart(2, '0');
-        // Efecto de escala al cambiar
-        elemento.style.transform = 'scale(1.3)';
-        elemento.style.color = '#e8d5a3';
+function animarNumero(elemento, valor) {
+    const formateado = String(valor).padStart(2, '0');
+    if (elemento.textContent !== formateado) {
+        elemento.textContent = formateado;
+        elemento.style.transform = 'scale(1.15)';
+        elemento.style.color = 'var(--oro-principal)';
         setTimeout(() => {
             elemento.style.transform = 'scale(1)';
-            elemento.style.color = '#b8963e';
-        }, 300);
+            elemento.style.color = 'var(--verde-bosque)';
+        }, 250);
     }
 }
 
@@ -59,565 +70,431 @@ setInterval(actualizarCuentaRegresiva, 1000);
 actualizarCuentaRegresiva();
 
 // =============================================================
+// 2. PÉTALOS Y HOJAS FLOTANTES (Jardín con Vida y Brisa)
 // =============================================================
-// PÉTALOS FLOTANTES - VERSIÓN REALISTA PREMIUM
-// =============================================================
-function crearPetales() {
+function crearPetalosYHojas() {
     const container = document.getElementById('petals-container');
-    
-    if (!container) {
-        console.error('❌ No se encontró #petals-container');
-        return;
-    }
-    
-    // Limpiar pétalos existentes
-    container.innerHTML = '';
-    
-    console.log('🌸 Creando pétalos realistas...');
-    
-    const cantidad = 35; // Más pétalos para un efecto más natural
-    
-    // Colores que combinan con la temática botánica
-    const colores = [
-        { bg: 'rgba(201, 160, 155, 0.85)', shadow: 'rgba(201, 160, 155, 0.3)' },  // Rosa viejo
-        { bg: 'rgba(232, 200, 197, 0.80)', shadow: 'rgba(232, 200, 197, 0.3)' },  // Rosa pálido
-        { bg: 'rgba(245, 237, 228, 0.75)', shadow: 'rgba(245, 237, 228, 0.2)' },  // Beige
-        { bg: 'rgba(212, 175, 55, 0.60)', shadow: 'rgba(212, 175, 55, 0.3)' },    // Dorado
-        { bg: 'rgba(250, 240, 238, 0.80)', shadow: 'rgba(250, 240, 238, 0.2)' },  // Blanco rosado
-        { bg: 'rgba(232, 180, 168, 0.75)', shadow: 'rgba(232, 180, 168, 0.3)' },  // Salmón
-        { bg: 'rgba(215, 190, 185, 0.70)', shadow: 'rgba(215, 190, 185, 0.2)' },  // Rosa grisáceo
-        { bg: 'rgba(240, 220, 210, 0.80)', shadow: 'rgba(240, 220, 210, 0.2)' }   // Nude
+    if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    container.replaceChildren();
+    const cantidad = 16;
+
+    // Colores suaves de flores y hojas de eucalipto / salvia
+    const estilos = [
+        // Pétalo blanco crema
+        { bg: 'rgba(255, 252, 248, 0.75)', radius: '65% 35% 70% 30%', border: 'rgba(221, 194, 127, 0.3)' },
+        // Pétalo rubor floral suave
+        { bg: 'rgba(244, 218, 214, 0.65)', radius: '70% 30% 65% 35%', border: 'rgba(238, 207, 202, 0.4)' },
+        // Hoja verde salvia / eucalipto
+        { bg: 'rgba(175, 201, 185, 0.68)', radius: '80% 20% 80% 20%', border: 'rgba(107, 143, 123, 0.3)' },
+        // Hoja verde oliva claro
+        { bg: 'rgba(195, 212, 192, 0.62)', radius: '20% 80% 20% 80%', border: 'rgba(107, 143, 123, 0.25)' }
     ];
 
     for (let i = 0; i < cantidad; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        
-        // ===== POSICIÓN =====
-        petal.style.left = Math.random() * 100 + '%';
-        petal.style.top = '-30px';
-        
-        // ===== TAMAÑO VARIADO (más natural) =====
-        const size = 12 + Math.random() * 22;
-        petal.style.width = size + 'px';
-        petal.style.height = size + 'px';
-        
-        // ===== COLOR =====
-        const color = colores[Math.floor(Math.random() * colores.length)];
-        petal.style.background = color.bg;
-        petal.style.boxShadow = `0 0 20px ${color.shadow}`;
-        
-        // ===== FORMA REALISTA DE PÉTALO =====
-        const forma = Math.random();
-        if (forma < 0.25) {
-            // Pétalo redondeado
-            petal.style.borderRadius = '50% 0 50% 50%';
-        } else if (forma < 0.50) {
-            // Pétalo alargado
-            petal.style.borderRadius = '0 50% 50% 50%';
-            petal.style.width = (size * 0.7) + 'px';
-            petal.style.height = (size * 1.3) + 'px';
-        } else if (forma < 0.75) {
-            // Pétalo con forma de gota
-            petal.style.borderRadius = '50% 0 50% 50%';
-            petal.style.width = (size * 0.8) + 'px';
-            petal.style.height = (size * 1.2) + 'px';
-        } else {
-            // Pétalo irregular
-            petal.style.borderRadius = '50% 50% 0 50%';
-            petal.style.width = (size * 1.1) + 'px';
-            petal.style.height = (size * 0.9) + 'px';
-        }
-        
-        // ===== ROTACIÓN INICIAL =====
-        petal.style.transform = `rotate(${Math.random() * 360}deg)`;
-        
-        // ===== OPACIDAD =====
-        petal.style.opacity = 0.4 + Math.random() * 0.5;
-        
-        // ===== ANIMACIÓN =====
-        // Duración de caída (10-20 segundos - más lento para ser realista)
-        petal.style.animationDuration = (12 + Math.random() * 12) + 's';
-        
-        // Retraso (0-12 segundos)
-        petal.style.animationDelay = (Math.random() * 12) + 's';
-        
-        // ===== EFECTO DE BRILLO (reflejo de luz) =====
-        if (Math.random() > 0.6) {
-            petal.style.background = `linear-gradient(135deg, ${color.bg}, rgba(255,255,255,0.3))`;
-        }
-        
-        // ===== PEQUEÑA MANCHA (más realista) =====
-        if (Math.random() > 0.7) {
-            petal.style.border = '1px solid rgba(255,255,255,0.2)';
-        }
-        
-        container.appendChild(petal);
+        const elemento = document.createElement('div');
+        elemento.className = 'petal';
+        elemento.setAttribute('aria-hidden', 'true');
+
+        const estilo = estilos[Math.floor(Math.random() * estilos.length)];
+        const ancho = 10 + Math.random() * 12;
+        const alto = ancho * (1.3 + Math.random() * 0.5);
+
+        const swayA = `${Math.round((Math.random() - 0.5) * 120)}px`;
+        const swayB = `${Math.round((Math.random() - 0.5) * 160)}px`;
+
+        elemento.style.left = `${Math.random() * 100}vw`;
+        elemento.style.width = `${ancho}px`;
+        elemento.style.height = `${alto}px`;
+        elemento.style.background = estilo.bg;
+        elemento.style.borderRadius = estilo.radius;
+        elemento.style.border = `1px solid ${estilo.border}`;
+        elemento.style.setProperty('--sway-a', swayA);
+        elemento.style.setProperty('--sway-b', swayB);
+        elemento.style.animationDuration = `${16 + Math.random() * 14}s`;
+        elemento.style.animationDelay = `${Math.random() * 12}s`;
+
+        container.appendChild(elemento);
     }
-    
-    console.log(`✅ ${cantidad} pétalos realistas creados`);
-}
-
-// Ejecutar al cargar
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(crearPetales, 500);
-});
-
-// =============================================================
-// 4. ANIMACIONES DE ENTRADA ESCALONADAS
-// =============================================================
-function animarEntradaEscalonada() {
-    const elementos = document.querySelectorAll(
-        '.hero-content, .detalles-card, .countdown-grid, .galeria-item, .rsvp-card'
-    );
-
-    elementos.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(50px) scale(0.95)';
-        el.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        
-        setTimeout(() => {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0) scale(1)';
-        }, 300 + (index * 200));
-    });
 }
 
 // =============================================================
-// 5. ANIMACIONES CON INTERSECTION OBSERVER (MEJORADO)
+// 3. GALERÍA INTERACTIVA Y LIGHTBOX
 // =============================================================
-function animarAlScroll() {
-    const elementos = document.querySelectorAll(
-        '.detalles-card, .countdown-grid, .galeria-item, .rsvp-card'
-    );
+let fotoActual = 0;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) scale(1)';
-                entry.target.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
-                observer.unobserve(entry.target);
-            }
+function configurarGaleria() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.querySelector('.lightbox-close');
+    const prevBtn = document.querySelector('.lightbox-nav.prev');
+    const nextBtn = document.querySelector('.lightbox-nav.next');
+    const galleryItems = document.querySelectorAll('.galeria-item');
+
+    if (!lightbox || !lightboxImg || galleryItems.length === 0) return;
+
+    galleryItems.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            fotoActual = index;
+            abrirLightbox(fotoActual);
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
     });
 
-    elementos.forEach((el) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(60px) scale(0.9)';
-        observer.observe(el);
-    });
-}
+    function abrirLightbox(index) {
+        const foto = CONFIG.fotos[index];
+        if (!foto) return;
 
-// =============================================================
-// 6. EFECTO DE BRILLO EN TÍTULOS (SHIMMER)
-// =============================================================
-function aplicarShimmer() {
-    const titulos = document.querySelectorAll('.hero-names, .detalles-header h2, .countdown-header h2, .galeria-header h2, .rsvp-card h2');
-    
-    titulos.forEach(titulo => {
-        titulo.style.background = 'linear-gradient(135deg, #2d4a3b 0%, #b8963e 25%, #e8d5a3 50%, #b8963e 75%, #2d4a3b 100%)';
-        titulo.style.backgroundSize = '300% 100%';
-        titulo.style.webkitBackgroundClip = 'text';
-        titulo.style.webkitTextFillColor = 'transparent';
-        titulo.style.backgroundClip = 'text';
-        titulo.style.animation = 'shimmer 4s ease-in-out infinite';
-    });
-}
+        lightboxImg.src = foto.src;
+        lightboxImg.alt = foto.title;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
 
-// Agregar la animación shimmer al CSS
-const styleShimmer = document.createElement('style');
-styleShimmer.textContent = `
-    @keyframes shimmer {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-`;
-document.head.appendChild(styleShimmer);
-
-// =============================================================
-// 7. PARALLAX EN EL HERO (EFECTO DE MOVIMIENTO)
-// =============================================================
-function initParallax() {
-    const hero = document.querySelector('.hero-section');
-    if (!hero) return;
-
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
-    });
-}
-
-
-// =============================================================
-// 9. GALERÍA CON LIGHTBOX (CON ANIMACIÓN)
-// =============================================================
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const closeBtn = document.querySelector('.lightbox-close');
-const prevBtn = document.querySelector('.lightbox-nav.prev');
-const nextBtn = document.querySelector('.lightbox-nav.next');
-let currentIndex = 0;
-const galleryItems = document.querySelectorAll('.galeria-item');
-const images = [];
-
-galleryItems.forEach((item, index) => {
-    const imgSrc = item.querySelector('img').src;
-    images.push(imgSrc);
-
-    item.addEventListener('click', function() {
-        currentIndex = index;
-        openLightbox(images[currentIndex]);
-    });
-});
-
-function openLightbox(src) {
-    lightboxImg.src = src;
-    lightbox.classList.add('active');
-    lightboxImg.style.transform = 'scale(0.5)';
-    lightboxImg.style.opacity = '0';
-    document.body.style.overflow = 'hidden';
-    
-    setTimeout(() => {
-        lightboxImg.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        lightboxImg.style.transform = 'scale(1)';
-        lightboxImg.style.opacity = '1';
-    }, 50);
-}
-
-function closeLightbox() {
-    lightboxImg.style.transform = 'scale(0.5)';
-    lightboxImg.style.opacity = '0';
-    setTimeout(() => {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-    }, 300);
-}
-
-function changeImage(direction) {
-    currentIndex += direction;
-    if (currentIndex < 0) currentIndex = images.length - 1;
-    if (currentIndex >= images.length) currentIndex = 0;
-    
-    lightboxImg.style.transform = 'scale(0.5)';
-    lightboxImg.style.opacity = '0';
-    setTimeout(() => {
-        lightboxImg.src = images[currentIndex];
+        lightboxImg.style.transform = 'scale(0.85)';
+        lightboxImg.style.opacity = '0';
         setTimeout(() => {
             lightboxImg.style.transform = 'scale(1)';
             lightboxImg.style.opacity = '1';
-        }, 100);
-    }, 200);
-}
+        }, 50);
 
-closeBtn.addEventListener('click', closeLightbox);
-prevBtn.addEventListener('click', () => changeImage(-1));
-nextBtn.addEventListener('click', () => changeImage(1));
+        if (closeBtn) closeBtn.focus();
+    }
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowLeft') changeImage(-1);
-    if (e.key === 'ArrowRight') changeImage(1);
-});
+    function cerrarLightbox() {
+        lightboxImg.style.transform = 'scale(0.85)';
+        lightboxImg.style.opacity = '0';
+        setTimeout(() => {
+            lightbox.classList.remove('active');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (galleryItems[fotoActual]) galleryItems[fotoActual].focus();
+        }, 250);
+    }
 
-lightbox.addEventListener('click', function(e) {
-    if (e.target === this) closeLightbox();
-});
+    function cambiarFoto(delta) {
+        fotoActual = (fotoActual + delta + CONFIG.fotos.length) % CONFIG.fotos.length;
+        lightboxImg.style.opacity = '0';
+        lightboxImg.style.transform = 'scale(0.92)';
 
-// =============================================================
-// 10. EFECTO RIPPLE EN BOTONES
-// =============================================================
-function initRipple() {
-    document.querySelectorAll('.btn-maps, .btn-rsvp, .music-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            ripple.classList.add('btn-ripple');
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.style.width = '20px';
-            ripple.style.height = '20px';
-            this.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-        });
+        setTimeout(() => {
+            const foto = CONFIG.fotos[fotoActual];
+            lightboxImg.src = foto.src;
+            lightboxImg.alt = foto.title;
+            setTimeout(() => {
+                lightboxImg.style.opacity = '1';
+                lightboxImg.style.transform = 'scale(1)';
+            }, 60);
+        }, 150);
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', cerrarLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', () => cambiarFoto(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => cambiarFoto(1));
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) cerrarLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape') cerrarLightbox();
+        if (e.key === 'ArrowLeft') cambiarFoto(-1);
+        if (e.key === 'ArrowRight') cambiarFoto(1);
     });
 }
 
 // =============================================================
-// 11. SCROLL SUAVE
+// 4. CONTROL DE MÚSICA (HTML5 Audio nativo + respaldo YouTube)
 // =============================================================
-document.querySelector('.hero-scroll')?.addEventListener('click', function() {
-    document.getElementById('detalles').scrollIntoView({ behavior: 'smooth' });
-});
-
-// =============================================================
-// 12. INICIALIZAR TODO
-// =============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    // Ejecutar en orden
-    setTimeout(animarEntradaEscalonada, 100);
-    setTimeout(animacionEscritura, 800);
-    setTimeout(aplicarShimmer, 1200);
-    initParallax();
-    animarAlScroll();
-    initRipple();
-    initMusica();
-
-    console.log('🌸 Invitación de boda cargada con éxito');
-    console.log(`💍 ${CONFIG.novios} - ${CONFIG.fechaBoda.toLocaleDateString('es-ES')}`);
-});
-
-// =============================================================
-// MÚSICA DESDE YOUTUBE - VERSIÓN SIMPLIFICADA Y CORREGIDA
-// =============================================================
-
-// 📌 CONFIGURACIÓN - SOLO CAMBIA ESTO
-const ID_VIDEO_YOUTUBE = 'lPQK4Misu-A'; // <--- TU ID (con L minúscula)
-
-let reproductor = null;
 let musicaActiva = false;
-let reproductorListo = false;
+let audioHtml5 = null;
+let reproductorYouTube = null;
+let youtubeListo = false;
+let youtubeCargando = false;
+let reproducirAlEstarListo = false;
+let usarYouTube = false;
 
-// =============================================================
-// CARGA LA API DE YOUTUBE
-// =============================================================
-function cargarYouTubeAPI() {
-    // Si ya está cargada, no hacer nada
-    if (typeof YT !== 'undefined' && YT.loaded) {
-        inicializarReproductor();
-        return;
+function iniciarControlMusica() {
+    audioHtml5 = document.getElementById('weddingAudio');
+
+    if (audioHtml5) {
+        audioHtml5.addEventListener('play', () => actualizarEstadoMusica(true));
+        audioHtml5.addEventListener('pause', () => actualizarEstadoMusica(false));
+        audioHtml5.addEventListener('ended', () => actualizarEstadoMusica(false));
+        audioHtml5.addEventListener('error', () => {
+            console.warn('Audio local no disponible o bloqueado por el navegador. Activando respaldo YouTube.');
+            usarYouTube = true;
+            cargarYouTubeAPI();
+        });
     }
-    
-    // Cargar la API
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    
-    // La función se llama automáticamente cuando la API carga
-    window.onYouTubeIframeAPIReady = function() {
-        console.log('🎵 API de YouTube cargada');
-        inicializarReproductor();
-    };
+
+    configurarBotonMusica();
+
+    // Precargar YouTube en segundo plano solo si se está sirviendo por HTTP/HTTPS
+    if (window.location.protocol.startsWith('http')) {
+        setTimeout(() => cargarYouTubeAPI(false), 2000);
+    }
 }
 
-// =============================================================
-// INICIALIZA EL REPRODUCTOR
-// =============================================================
-function inicializarReproductor() {
-    const contenedor = document.getElementById('youtube-player');
-    if (!contenedor) {
-        console.error('❌ No se encontró #youtube-player');
-        return;
-    }
-    
-    // Verificar que YT está disponible
-    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-        console.error('❌ YT no está disponible');
-        return;
-    }
-    
-    reproductor = new YT.Player('youtube-player', {
-        height: '0',
-        width: '0',
-        videoId: ID_VIDEO_YOUTUBE,
-        playerVars: {
-            autoplay: 0,
-            controls: 0,
-            disablekb: 1,
-            loop: 1,
-            playlist: ID_VIDEO_YOUTUBE,
-            rel: 0,
-            showinfo: 0,
-            iv_load_policy: 3,
-            modestbranding: 1
-        },
-        events: {
-            onReady: function() {
-                reproductorListo = true;
-                console.log('✅ Reproductor listo - ID:', ID_VIDEO_YOUTUBE);
-            },
-            onStateChange: function(event) {
-                if (event.data === YT.PlayerState.ENDED) {
-                    reproductor.playVideo();
-                }
-            },
-            onError: function(event) {
-                console.error('❌ Error en reproductor:', event.data);
+function alternarMusica() {
+    // 1. Intentar con elemento nativo HTML5 Audio
+    if (audioHtml5 && !usarYouTube) {
+        if (musicaActiva) {
+            audioHtml5.pause();
+        } else {
+            actualizarBotonMusicaTooltip('Iniciando música...');
+            const promesaPlay = audioHtml5.play();
+            if (promesaPlay !== undefined) {
+                promesaPlay
+                    .then(() => {
+                        actualizarEstadoMusica(true);
+                    })
+                    .catch((err) => {
+                        console.warn('No se pudo reproducir el archivo local, intentando YouTube...', err);
+                        usarYouTube = true;
+                        reproducirConYouTube();
+                    });
             }
         }
-    });
+        return;
+    }
+
+    // 2. Respaldo con YouTube
+    reproducirConYouTube();
 }
 
-// =============================================================
-// CONTROLA EL BOTÓN DE MÚSICA
-// =============================================================
+function reproducirConYouTube() {
+    if (!reproductorYouTube || !youtubeListo) {
+        actualizarBotonMusicaTooltip('Cargando melodía...');
+        cargarYouTubeAPI(true);
+        return;
+    }
+
+    if (musicaActiva) {
+        reproductorYouTube.pauseVideo();
+    } else {
+        reproductorYouTube.playVideo();
+    }
+}
+
+function cargarYouTubeAPI(autoPlay = false) {
+    if (autoPlay) reproducirAlEstarListo = true;
+    if (youtubeCargando) return;
+    youtubeCargando = true;
+
+    if (typeof YT !== 'undefined' && YT.Player) {
+        iniciarReproductorYouTube();
+        return;
+    }
+
+    window.onYouTubeIframeAPIReady = function() {
+        iniciarReproductorYouTube();
+    };
+
+    if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+        const script = document.createElement('script');
+        script.src = 'https://www.youtube.com/iframe_api';
+        document.head.appendChild(script);
+    }
+}
+
+function iniciarReproductorYouTube() {
+    const contenedor = document.getElementById('youtube-player');
+    if (!contenedor || typeof YT === 'undefined' || !YT.Player) return;
+
+    const playerVars = {
+        autoplay: 0,
+        controls: 0,
+        disablekb: 1,
+        fs: 0,
+        rel: 0,
+        playsinline: 1,
+        loop: 1,
+        playlist: CONFIG.idVideoYouTube
+    };
+
+    if (window.location.protocol.startsWith('http')) {
+        playerVars.origin = window.location.origin;
+    }
+
+    try {
+        reproductorYouTube = new YT.Player('youtube-player', {
+            height: '1',
+            width: '1',
+            videoId: CONFIG.idVideoYouTube,
+            playerVars: playerVars,
+            events: {
+                onReady: function() {
+                    youtubeListo = true;
+                    if (reproducirAlEstarListo) {
+                        reproducirAlEstarListo = false;
+                        reproductorYouTube.playVideo();
+                    } else if (!musicaActiva) {
+                        actualizarBotonMusicaTooltip('Reproducir música');
+                    }
+                },
+                onStateChange: function(e) {
+                    if (e.data === YT.PlayerState.PLAYING) {
+                        actualizarEstadoMusica(true);
+                    } else if (e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED) {
+                        actualizarEstadoMusica(false);
+                    }
+                },
+                onError: function(e) {
+                    console.warn('Aviso de YouTube API:', e.data);
+                    // Si YouTube falla pero el audio local está disponible, intentar audio local
+                    if (audioHtml5) {
+                        usarYouTube = false;
+                        audioHtml5.play().catch(() => {
+                            actualizarBotonMusicaTooltip('Música en pausa');
+                        });
+                    } else {
+                        actualizarBotonMusicaTooltip('Música en pausa');
+                    }
+                }
+            }
+        });
+    } catch (e) {
+        console.error('Error inicializando YT.Player:', e);
+    }
+}
+
+function actualizarEstadoMusica(reproduciendo) {
+    musicaActiva = reproduciendo;
+    const boton = document.getElementById('musicControl');
+    if (!boton) return;
+
+    boton.classList.toggle('playing', reproduciendo);
+    const icono = boton.querySelector('i');
+    if (icono) {
+        icono.className = reproduciendo ? 'fas fa-pause' : 'fas fa-music';
+    }
+    actualizarBotonMusicaTooltip(reproduciendo ? 'Pausar música' : 'Reproducir música');
+}
+
+function actualizarBotonMusicaTooltip(texto) {
+    const tooltip = document.querySelector('#musicControl .music-tooltip');
+    const boton = document.getElementById('musicControl');
+    if (tooltip) tooltip.textContent = texto;
+    if (boton) {
+        boton.setAttribute('aria-label', texto);
+        boton.title = texto;
+    }
+}
+
 function configurarBotonMusica() {
     const boton = document.getElementById('musicControl');
-    if (!boton) {
-        console.error('❌ No se encontró #musicControl');
-        return;
-    }
-    
-    boton.addEventListener('click', function() {
-        if (!reproductorListo) {
-            alert('⏳ Cargando música, espera un momento...');
-            return;
-        }
-        
-        if (musicaActiva) {
-            // PAUSAR
-            reproductor.pauseVideo();
-            this.classList.remove('playing');
-            this.querySelector('i').className = 'fas fa-music';
-            this.querySelector('.music-tooltip').textContent = 'Reproducir música';
-            musicaActiva = false;
-            console.log('⏸️ Música pausada');
-        } else {
-            // REPRODUCIR
-            reproductor.playVideo();
-            this.classList.add('playing');
-            this.querySelector('i').className = 'fas fa-music fa-beat';
-            this.querySelector('.music-tooltip').textContent = 'Pausar música';
-            musicaActiva = true;
-            console.log('▶️ Música reproduciendo');
-        }
-    });
-    
-    console.log('🎵 Botón de música configurado');
-}
+    if (!boton) return;
 
-
-// =============================================================
-// GALERÍA - EFECTO REVELACIÓN CON ZOOM (UNA IMAGEN POR FILA)
-// =============================================================
-
-function initGaleriaReveal() {
-    const items = document.querySelectorAll('.galeria-item');
-    
-    if (items.length === 0) return;
-    
-    // Configuración del observer
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            const item = entry.target;
-            
-            if (entry.isIntersecting) {
-                // Cuando entra en pantalla → se agranda con efecto
-                item.classList.remove('pasado');
-                item.classList.add('visible');
-                
-                // Efecto adicional: la imagen se agranda ligeramente
-                const img = item.querySelector('img');
-                if (img) {
-                    img.style.transform = 'scale(1.02)';
-                    setTimeout(() => {
-                        img.style.transform = 'scale(1)';
-                    }, 600);
-                }
-            } else {
-                // Cuando sale de pantalla → se reduce
-                item.classList.remove('visible');
-                item.classList.add('pasado');
-            }
-        });
-    }, {
-        threshold: 0.40, // 40% visible para activar
-        rootMargin: '0px 0px -30px 0px'
-    });
-    
-    // Observar cada item
-    items.forEach((item, index) => {
-        // Retraso escalonado para que aparezcan uno tras otro
-        setTimeout(() => {
-            observer.observe(item);
-        }, 200 * index);
-    });
+    // Remover listeners anteriores reemplazando el nodo o agregando el evento limpio
+    boton.onclick = alternarMusica;
 }
 
 // =============================================================
-// RSVP - UN SOLO BOTÓN CON FORMULARIO EMERGENTE
+// 5. CONTROL DE FORMULARIO RSVP (WhatsApp + Google Sheets)
 // =============================================================
-
-// 🔑 CONFIGURACIÓN
-const URL_GOOGLE_SHEETS = 'https://script.google.com/macros/s/AKfycbw5MfQHE5iVo-hzCxuEvRNZc3zXPF_Pqn6cpzkmq1d523vbC2muUdv18mVT5Ebfbqa3vA/exec';
-const NUMERO_WHATSAPP = '50232665826'; // ← CAMBIA POR TU NÚMERO
-
-// =============================================================
-// CONTROL DEL FORMULARIO EMERGENTE
-// =============================================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Botón principal: muestra el formulario
-    const btnConfirmar = document.getElementById('btnConfirmar');
+function configurarRSVP() {
+    const btnNovio = document.getElementById('btnConfirmarNovio');
+    const btnNovia = document.getElementById('btnConfirmarNovia');
+    const buttonsGroup = document.querySelector('.rsvp-buttons-group');
     const formContainer = document.getElementById('rsvpForm');
+    const formTitulo = document.getElementById('rsvpFormTitulo');
+    const radiosDestinatario = document.querySelectorAll('input[name="destinatario"]');
     const btnEnviar = document.getElementById('btnEnviar');
     const btnCancelar = document.getElementById('btnCancelar');
-    
-    // Mostrar formulario al hacer clic en "Confirmar Asistencia"
-    btnConfirmar.addEventListener('click', function() {
-        // Ocultar el botón principal
-        this.style.display = 'none';
-        // Mostrar el formulario con animación
+    const rsvpStatus = document.getElementById('rsvpStatus');
+
+    if (!formContainer || !btnEnviar || !btnCancelar) return;
+
+    function abrirFormulario(destinatario) {
+        if (buttonsGroup) buttonsGroup.style.display = 'none';
         formContainer.style.display = 'block';
-        // Enfocar el primer campo
-        document.getElementById('nombre').focus();
-    });
-    
-    // Cancelar: ocultar formulario y mostrar botón
-    btnCancelar.addEventListener('click', function() {
-        formContainer.style.display = 'none';
-        btnConfirmar.style.display = 'inline-flex';
-        // Limpiar campos
-        document.getElementById('nombre').value = '';
-        document.getElementById('telefono').value = '';
-        document.getElementById('invitados').value = '1';
-    });
-    
-    // Enviar: guardar y abrir WhatsApp
-    btnEnviar.addEventListener('click', confirmarAsistencia);
-    
-    // Presionar Enter en los campos también envía
-    const inputs = document.querySelectorAll('#rsvpForm input');
-    inputs.forEach(input => {
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                confirmarAsistencia();
+        if (rsvpStatus) rsvpStatus.textContent = '';
+
+        const radio = document.querySelector(`input[name="destinatario"][value="${destinatario}"]`);
+        if (radio) radio.checked = true;
+
+        if (formTitulo) {
+            formTitulo.textContent = destinatario === 'novia'
+                ? 'Confirmar Asistencia con la Novia (Astrid)'
+                : 'Confirmar Asistencia con el Novio (Alexander)';
+        }
+
+        const inputNombre = document.getElementById('nombre');
+        if (inputNombre) inputNombre.focus();
+    }
+
+    if (btnNovio) btnNovio.addEventListener('click', () => abrirFormulario('novio'));
+    if (btnNovia) btnNovia.addEventListener('click', () => abrirFormulario('novia'));
+
+    radiosDestinatario.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            if (formTitulo) {
+                formTitulo.textContent = e.target.value === 'novia'
+                    ? 'Confirmar Asistencia con la Novia (Astrid)'
+                    : 'Confirmar Asistencia con el Novio (Alexander)';
             }
         });
     });
-});
 
-// =============================================================
-// FUNCIÓN PARA CONFIRMAR ASISTENCIA
-// =============================================================
+    // Cancelar
+    btnCancelar.addEventListener('click', () => {
+        formContainer.style.display = 'none';
+        if (buttonsGroup) buttonsGroup.style.display = 'flex';
+        if (rsvpStatus) rsvpStatus.textContent = '';
+    });
 
-function confirmarAsistencia() {
-    const nombre = document.getElementById('nombre').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
-    const invitados = document.getElementById('invitados').value.trim() || '1';
-    
-    // Validar
+    // Enviar
+    btnEnviar.addEventListener('click', procesarRSVP);
+
+    // Enter en campos de texto
+    document.querySelectorAll('#rsvpForm input:not([type="radio"])').forEach(input => {
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') procesarRSVP();
+        });
+    });
+}
+
+function procesarRSVP() {
+    const nombre = document.getElementById('nombre')?.value.trim();
+    const telefono = document.getElementById('telefono')?.value.trim();
+    const invitados = document.getElementById('invitados')?.value.trim() || '1';
+    const destinatarioRadio = document.querySelector('input[name="destinatario"]:checked');
+    const destinatario = destinatarioRadio ? destinatarioRadio.value : 'novio';
+
+    const rsvpStatus = document.getElementById('rsvpStatus');
+    const btnEnviar = document.getElementById('btnEnviar');
+    const buttonsGroup = document.querySelector('.rsvp-buttons-group');
+    const formContainer = document.getElementById('rsvpForm');
+
     if (!nombre) {
-        alert('⚠️ Por favor ingresa tu nombre completo');
-        document.getElementById('nombre').focus();
+        alert('Por favor ingresa tu nombre completo para confirmar tu asistencia.');
+        document.getElementById('nombre')?.focus();
         return;
     }
-    
-    const btnEnviar = document.getElementById('btnEnviar');
+
+    const cantidad = Number(invitados);
+    if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > 10) {
+        alert('Por favor indica entre 1 y 10 invitados.');
+        document.getElementById('invitados')?.focus();
+        return;
+    }
+
     const textoOriginal = btnEnviar.innerHTML;
-    btnEnviar.innerHTML = '⏳ Guardando...';
+    btnEnviar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
     btnEnviar.disabled = true;
-    
-    // Guardar en Google Sheets
-    fetch(URL_GOOGLE_SHEETS, {
+
+    const esNovia = destinatario === 'novia';
+    const nombreDestinatario = esNovia ? 'Astrid' : 'Alexander';
+    const numeroWhatsApp = esNovia ? CONFIG.numeroWhatsAppNovia : CONFIG.numeroWhatsAppNovio;
+
+    const mensajeWhatsApp = `¡Hola ${nombreDestinatario}! Confirmo con mucho gusto mi asistencia a su boda 🤍💍\n\nNombre: ${nombre}\nTeléfono: ${telefono || 'No especificado'}\nTotal de Invitados: ${invitados}\n\n¡Felicidades y muchas bendiciones!`;
+    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeWhatsApp)}`;
+    const ventanaWhatsApp = window.open(urlWhatsApp, '_blank');
+    if (ventanaWhatsApp) ventanaWhatsApp.opener = null;
+
+    // Enviar a Google Sheets
+    fetch(CONFIG.urlGoogleSheets, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
@@ -625,50 +502,35 @@ function confirmarAsistencia() {
             nombre: nombre,
             telefono: telefono || 'No especificado',
             invitados: invitados,
-            mensaje: 'Confirmación desde la web'
+            destinatario: esNovia ? 'Novia (Astrid)' : 'Novio (Alexander)',
+            mensaje: `Confirmación enviada a ${esNovia ? 'la Novia (Astrid)' : 'el Novio (Alexander)'}`
         })
-    })
-    .then(() => {
-        // ✅ Guardado exitoso
-        alert('✅ ¡Confirmación guardada! Gracias por confirmar.');
-        
-        // Abrir WhatsApp con mensaje predefinido
-        const mensaje = `Hola Alexander y Astid, confirmo mi asistencia a su boda ❤️\n\nNombre: ${nombre}\nTeléfono: ${telefono || 'No especificado'}\nInvitados: ${invitados}`;
-        const urlWhatsApp = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-        window.open(urlWhatsApp, '_blank');
-        
-        // Resetear todo
-        document.getElementById('rsvpForm').style.display = 'none';
-        document.getElementById('btnConfirmar').style.display = 'inline-flex';
-        document.getElementById('nombre').value = '';
-        document.getElementById('telefono').value = '';
-        document.getElementById('invitados').value = '1';
-    })
-    .catch(() => {
-        // ❌ Si falla, solo abrir WhatsApp
-        alert('⚠️ No se pudo guardar en la base de datos, pero puedes confirmar por WhatsApp.');
-        const mensaje = `Hola Alexander y Astid, confirmo mi asistencia a su boda ❤️\n\nNombre: ${nombre}`;
-        const urlWhatsApp = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
-        window.open(urlWhatsApp, '_blank');
-        
-        document.getElementById('rsvpForm').style.display = 'none';
-        document.getElementById('btnConfirmar').style.display = 'inline-flex';
-        document.getElementById('nombre').value = '';
-        document.getElementById('telefono').value = '';
-        document.getElementById('invitados').value = '1';
     })
     .finally(() => {
         btnEnviar.innerHTML = textoOriginal;
         btnEnviar.disabled = false;
+        formContainer.style.display = 'none';
+        if (buttonsGroup) buttonsGroup.style.display = 'flex';
+
+        // Limpiar campos
+        if (document.getElementById('nombre')) document.getElementById('nombre').value = '';
+        if (document.getElementById('telefono')) document.getElementById('telefono').value = '';
+        if (document.getElementById('invitados')) document.getElementById('invitados').value = '1';
+
+        if (rsvpStatus) {
+            rsvpStatus.textContent = `¡Gracias! Tu confirmación ha sido enviada con éxito a ${nombreDestinatario}. Te esperamos con alegría.`;
+        }
     });
 }
+
 // =============================================================
-// INICIALIZAR TODO CUANDO LA PÁGINA CARGA
+// 6. INICIALIZAR AL CARGAR
 // =============================================================
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎵 Iniciando música...');
-    cargarYouTubeAPI();
-    configurarBotonMusica();
-    // Inicializar efecto reveal en galería
-    initGaleriaReveal();
+document.addEventListener('DOMContentLoaded', () => {
+    crearPetalosYHojas();
+    configurarGaleria();
+    iniciarControlMusica();
+    configurarRSVP();
+
+    console.log(`🌸 Boda ${CONFIG.novios} - ${CONFIG.fechaBoda.toLocaleDateString('es-ES')}`);
 });

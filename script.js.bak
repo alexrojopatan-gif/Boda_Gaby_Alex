@@ -1,0 +1,630 @@
+// =============================================================
+// CONFIGURACIÓN - CAMBIA ESTOS DATOS AQUÍ
+// =============================================================
+const CONFIG = {
+    fechaBoda: new Date('2027-01-23T15:00:00'),
+    novios: 'Alexander y Astrid',
+    fotos: [
+        'assets/img/foto1.jpg',
+        'assets/img/foto2.jpg',
+        'assets/img/foto3.jpg',
+        'assets/img/foto4.jpg'
+    ]
+};
+
+// =============================================================
+// 1. CUENTA REGRESIVA CON ANIMACIÓN
+// =============================================================
+function actualizarCuentaRegresiva() {
+    const ahora = new Date().getTime();
+    const distancia = CONFIG.fechaBoda.getTime() - ahora;
+
+    if (distancia <= 0) {
+        document.getElementById('days').textContent = '00';
+        document.getElementById('hours').textContent = '00';
+        document.getElementById('minutes').textContent = '00';
+        document.getElementById('seconds').textContent = '00';
+        return;
+    }
+
+    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    // Animar números cuando cambian
+    animarNumero('days', dias);
+    animarNumero('hours', horas);
+    animarNumero('minutes', minutos);
+    animarNumero('seconds', segundos);
+}
+
+function animarNumero(id, valor) {
+    const elemento = document.getElementById(id);
+    const valorActual = parseInt(elemento.textContent);
+    if (valorActual !== valor) {
+        elemento.textContent = String(valor).padStart(2, '0');
+        // Efecto de escala al cambiar
+        elemento.style.transform = 'scale(1.3)';
+        elemento.style.color = 'var(--dorado-claro)';
+        setTimeout(() => {
+            elemento.style.transform = 'scale(1)';
+            elemento.style.color = 'var(--dorado)';
+        }, 300);
+    }
+}
+
+setInterval(actualizarCuentaRegresiva, 1000);
+actualizarCuentaRegresiva();
+
+// =============================================================
+// =============================================================
+// PÉTALOS FLOTANTES - VERSIÓN REALISTA PREMIUM
+// =============================================================
+function crearPetales() {
+    const container = document.getElementById('petals-container');
+
+    if (!container || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const cantidad = 12;
+    const colores = [
+        'rgba(242, 230, 215, 0.62)',
+        'rgba(210, 170, 163, 0.48)',
+        'rgba(232, 217, 196, 0.54)',
+        'rgba(248, 242, 232, 0.58)'
+    ];
+    const balanceo = () => `${Math.round(Math.random() * 90 - 45)}px`;
+
+    container.replaceChildren();
+
+    for (let i = 0; i < cantidad; i++) {
+        const petal = document.createElement('div');
+        const size = 8 + Math.random() * 8;
+
+        petal.className = i % 3 === 0 ? 'petal petal--caida' : 'petal';
+        petal.setAttribute('aria-hidden', 'true');
+        petal.style.left = `${Math.random() * 100}%`;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size * (1.25 + Math.random() * 0.35)}px`;
+        petal.style.background = colores[Math.floor(Math.random() * colores.length)];
+        petal.style.borderRadius = '70% 8% 65% 35%';
+        petal.style.setProperty('--sway-a', balanceo());
+        petal.style.setProperty('--sway-b', balanceo());
+        petal.style.setProperty('--sway-c', balanceo());
+        petal.style.animationDuration = `${20 + Math.random() * 12}s`;
+        petal.style.animationDelay = `${Math.random() * 14}s`;
+
+        container.appendChild(petal);
+    }
+}
+
+// Ejecutar al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(crearPetales, 500);
+});
+
+// =============================================================
+// 4. ANIMACIONES DE ENTRADA ESCALONADAS
+// =============================================================
+function animarEntradaEscalonada() {
+    const elementos = document.querySelectorAll(
+        '.hero-content, .detalles-card, .countdown-grid, .galeria-item, .rsvp-card'
+    );
+
+    elementos.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(50px) scale(0.95)';
+        el.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        
+        setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0) scale(1)';
+        }, 300 + (index * 200));
+    });
+}
+
+// =============================================================
+// 5. ANIMACIONES CON INTERSECTION OBSERVER (MEJORADO)
+// =============================================================
+function animarAlScroll() {
+    const elementos = document.querySelectorAll(
+        '.detalles-card, .countdown-grid, .galeria-item, .rsvp-card'
+    );
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0) scale(1)';
+                entry.target.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    elementos.forEach((el) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(60px) scale(0.9)';
+        observer.observe(el);
+    });
+}
+
+// =============================================================
+// 6. EFECTO DE BRILLO EN TÍTULOS (SHIMMER)
+// =============================================================
+function aplicarShimmer() {
+    const titulos = document.querySelectorAll('.hero-names, .detalles-header h2, .countdown-header h2, .galeria-header h2, .rsvp-card h2');
+    
+    titulos.forEach(titulo => {
+        titulo.style.background = 'linear-gradient(135deg, #2d4a3b 0%, #b8963e 25%, #e8d5a3 50%, #b8963e 75%, #2d4a3b 100%)';
+        titulo.style.backgroundSize = '300% 100%';
+        titulo.style.webkitBackgroundClip = 'text';
+        titulo.style.webkitTextFillColor = 'transparent';
+        titulo.style.backgroundClip = 'text';
+        titulo.style.animation = 'shimmer 4s ease-in-out infinite';
+    });
+}
+
+// Agregar la animación shimmer al CSS
+const styleShimmer = document.createElement('style');
+styleShimmer.textContent = `
+    @keyframes shimmer {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+`;
+document.head.appendChild(styleShimmer);
+
+// =============================================================
+// 7. PARALLAX EN EL HERO (EFECTO DE MOVIMIENTO)
+// =============================================================
+function initParallax() {
+    const hero = document.querySelector('.hero-section');
+    if (!hero) return;
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
+    });
+}
+
+
+// =============================================================
+// 9. GALERÍA CON LIGHTBOX (CON ANIMACIÓN)
+// =============================================================
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const closeBtn = document.querySelector('.lightbox-close');
+const prevBtn = document.querySelector('.lightbox-nav.prev');
+const nextBtn = document.querySelector('.lightbox-nav.next');
+let currentIndex = 0;
+const galleryItems = document.querySelectorAll('.galeria-item');
+const images = [];
+
+galleryItems.forEach((item, index) => {
+    const imgSrc = item.querySelector('img').src;
+    images.push(imgSrc);
+
+    item.addEventListener('click', function() {
+        currentIndex = index;
+        openLightbox(images[currentIndex]);
+    });
+});
+
+function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    lightboxImg.alt = galleryItems[currentIndex].querySelector('img').alt;
+    lightboxImg.style.transform = 'scale(0.5)';
+    lightboxImg.style.opacity = '0';
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+    
+    setTimeout(() => {
+        lightboxImg.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        lightboxImg.style.transform = 'scale(1)';
+        lightboxImg.style.opacity = '1';
+    }, 50);
+}
+
+function closeLightbox() {
+    lightboxImg.style.transform = 'scale(0.5)';
+    lightboxImg.style.opacity = '0';
+    setTimeout(() => {
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        galleryItems[currentIndex].focus();
+    }, 300);
+}
+
+function changeImage(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+    
+    lightboxImg.style.transform = 'scale(0.5)';
+    lightboxImg.style.opacity = '0';
+    setTimeout(() => {
+        lightboxImg.src = images[currentIndex];
+        lightboxImg.alt = galleryItems[currentIndex].querySelector('img').alt;
+        setTimeout(() => {
+            lightboxImg.style.transform = 'scale(1)';
+            lightboxImg.style.opacity = '1';
+        }, 100);
+    }, 200);
+}
+
+closeBtn.addEventListener('click', closeLightbox);
+prevBtn.addEventListener('click', () => changeImage(-1));
+nextBtn.addEventListener('click', () => changeImage(1));
+
+document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeImage(-1);
+    if (e.key === 'ArrowRight') changeImage(1);
+});
+
+lightbox.addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+});
+
+// =============================================================
+// 10. EFECTO RIPPLE EN BOTONES
+// =============================================================
+function initRipple() {
+    document.querySelectorAll('.btn-maps, .btn-rsvp, .music-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('btn-ripple');
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+}
+
+// =============================================================
+// 12. INICIALIZAR TODO
+// =============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    initParallax();
+    initRipple();
+
+    console.log(`${CONFIG.novios} - ${CONFIG.fechaBoda.toLocaleDateString('es-ES')}`);
+});
+
+// =============================================================
+// MÚSICA DESDE YOUTUBE - VERSIÓN SIMPLIFICADA Y CORREGIDA
+// =============================================================
+
+// 📌 CONFIGURACIÓN - SOLO CAMBIA ESTO
+const ID_VIDEO_YOUTUBE = '98Akpf1ph2o'; // <--- TU ID (con L minúscula)
+
+let reproductor = null;
+let musicaActiva = false;
+let reproductorListo = false;
+let apiMusicaSolicitada = false;
+
+// =============================================================
+// CARGA LA API DE YOUTUBE
+// =============================================================
+function cargarYouTubeAPI() {
+    if (apiMusicaSolicitada) return;
+
+    // Si ya está cargada, no hacer nada
+    if (typeof YT !== 'undefined' && YT.loaded) {
+        apiMusicaSolicitada = true;
+        inicializarReproductor();
+        return;
+    }
+
+    apiMusicaSolicitada = true;
+
+    window.onYouTubeIframeAPIReady = function() {
+        inicializarReproductor();
+    };
+    
+    // Cargar la API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+function actualizarControlMusica(reproduciendo) {
+    const boton = document.getElementById('musicControl');
+    if (!boton) return;
+
+    musicaActiva = reproduciendo;
+    boton.classList.toggle('playing', reproduciendo);
+    boton.querySelector('i').className = reproduciendo ? 'fas fa-music fa-beat' : 'fas fa-music';
+    boton.querySelector('.music-tooltip').textContent = reproduciendo ? 'Pausar música' : 'Reproducir música';
+    boton.setAttribute('aria-label', reproduciendo ? 'Pausar música' : 'Reproducir música');
+    boton.title = reproduciendo ? 'Pausar música' : 'Reproducir música';
+}
+
+// =============================================================
+// INICIALIZA EL REPRODUCTOR
+// =============================================================
+function inicializarReproductor() {
+    const contenedor = document.getElementById('youtube-player');
+    if (!contenedor) {
+        console.error('❌ No se encontró #youtube-player');
+        return;
+    }
+    
+    // Verificar que YT está disponible
+    if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+        console.error('❌ YT no está disponible');
+        return;
+    }
+    
+    reproductor = new YT.Player('youtube-player', {
+        height: '0',
+        width: '0',
+        videoId: ID_VIDEO_YOUTUBE,
+        playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            loop: 1,
+            playlist: ID_VIDEO_YOUTUBE,
+            rel: 0,
+            showinfo: 0,
+            iv_load_policy: 3,
+            modestbranding: 1
+        },
+        events: {
+            onReady: function() {
+                reproductorListo = true;
+                document.querySelector('#musicControl .music-tooltip').textContent = 'Pulsa para reproducir';
+            },
+            onStateChange: function(event) {
+                if (event.data === YT.PlayerState.ENDED) {
+                    reproductor.playVideo();
+                } else if (event.data === YT.PlayerState.PLAYING) {
+                    actualizarControlMusica(true);
+                } else if (event.data === YT.PlayerState.PAUSED) {
+                    actualizarControlMusica(false);
+                }
+            },
+            onError: function(event) {
+                reproductorListo = false;
+                const boton = document.getElementById('musicControl');
+                if (boton) {
+                    actualizarControlMusica(false);
+                    boton.disabled = true;
+                    boton.querySelector('.music-tooltip').textContent = 'Música no disponible';
+                    boton.setAttribute('aria-label', 'Música no disponible');
+                    boton.title = 'Música no disponible';
+                }
+            }
+        }
+    });
+}
+
+// =============================================================
+// CONTROLA EL BOTÓN DE MÚSICA
+// =============================================================
+function configurarBotonMusica() {
+    const boton = document.getElementById('musicControl');
+    if (!boton) {
+        console.error('❌ No se encontró #musicControl');
+        return;
+    }
+    
+    boton.addEventListener('click', function() {
+        if (!reproductorListo) {
+            this.querySelector('.music-tooltip').textContent = apiMusicaSolicitada ? 'Música cargando' : 'Cargando música';
+            cargarYouTubeAPI();
+            return;
+        }
+        
+        if (musicaActiva) {
+            // PAUSAR
+            reproductor.pauseVideo();
+        } else {
+            // REPRODUCIR
+            reproductor.playVideo();
+        }
+    });
+    
+    console.log('🎵 Botón de música configurado');
+}
+
+
+// =============================================================
+// GALERÍA - EFECTO REVELACIÓN CON ZOOM (UNA IMAGEN POR FILA)
+// =============================================================
+
+function initGaleriaReveal() {
+    const items = document.querySelectorAll('.galeria-item');
+    
+    if (items.length === 0) return;
+    
+    // Configuración del observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const item = entry.target;
+            
+            if (entry.isIntersecting) {
+                // Cuando entra en pantalla → se agranda con efecto
+                item.classList.remove('pasado');
+                item.classList.add('visible');
+                
+                // Efecto adicional: la imagen se agranda ligeramente
+                const img = item.querySelector('img');
+                if (img) {
+                    img.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        img.style.transform = 'scale(1)';
+                    }, 600);
+                }
+            }
+        });
+    }, {
+        threshold: 0.40, // 40% visible para activar
+        rootMargin: '0px 0px -30px 0px'
+    });
+    
+    // Observar cada item
+    items.forEach((item, index) => {
+        // Retraso escalonado para que aparezcan uno tras otro
+        setTimeout(() => {
+            observer.observe(item);
+        }, 200 * index);
+    });
+}
+
+// =============================================================
+// RSVP - UN SOLO BOTÓN CON FORMULARIO EMERGENTE
+// =============================================================
+
+// 🔑 CONFIGURACIÓN
+const URL_GOOGLE_SHEETS = 'https://script.google.com/macros/s/AKfycbw5MfQHE5iVo-hzCxuEvRNZc3zXPF_Pqn6cpzkmq1d523vbC2muUdv18mVT5Ebfbqa3vA/exec';
+const NUMERO_WHATSAPP = '50232665826'; // ← CAMBIA POR TU NÚMERO
+
+// =============================================================
+// CONTROL DEL FORMULARIO EMERGENTE
+// =============================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Botón principal: muestra el formulario
+    const btnConfirmar = document.getElementById('btnConfirmar');
+    const formContainer = document.getElementById('rsvpForm');
+    const btnEnviar = document.getElementById('btnEnviar');
+    const btnCancelar = document.getElementById('btnCancelar');
+
+    if (!btnConfirmar || !formContainer || !btnEnviar || !btnCancelar) return;
+    
+    // Mostrar formulario al hacer clic en "Confirmar Asistencia"
+    btnConfirmar.addEventListener('click', function() {
+        // Ocultar el botón principal
+        this.style.display = 'none';
+        // Mostrar el formulario con animación
+        formContainer.style.display = 'block';
+        document.getElementById('rsvpStatus').textContent = '';
+        // Enfocar el primer campo
+        document.getElementById('nombre').focus();
+    });
+    
+    // Cancelar: ocultar formulario y mostrar botón
+    btnCancelar.addEventListener('click', function() {
+        formContainer.style.display = 'none';
+        btnConfirmar.style.display = 'inline-flex';
+        document.getElementById('rsvpStatus').textContent = '';
+        // Limpiar campos
+        document.getElementById('nombre').value = '';
+        document.getElementById('telefono').value = '';
+        document.getElementById('invitados').value = '1';
+    });
+    
+    // Enviar: guardar y abrir WhatsApp
+    btnEnviar.addEventListener('click', confirmarAsistencia);
+    
+    // Presionar Enter en los campos también envía
+    const inputs = document.querySelectorAll('#rsvpForm input');
+    inputs.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                confirmarAsistencia();
+            }
+        });
+    });
+});
+
+// =============================================================
+// FUNCIÓN PARA CONFIRMAR ASISTENCIA
+// =============================================================
+
+function confirmarAsistencia() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const invitados = document.getElementById('invitados').value.trim() || '1';
+    
+    // Validar
+    if (!nombre) {
+        alert('⚠️ Por favor ingresa tu nombre completo');
+        document.getElementById('nombre').focus();
+        return;
+    }
+
+    const cantidadInvitados = Number(invitados);
+    if (!Number.isInteger(cantidadInvitados) || cantidadInvitados < 1 || cantidadInvitados > 10) {
+        alert('Por favor indica entre 1 y 10 invitados.');
+        document.getElementById('invitados').focus();
+        return;
+    }
+    
+    const btnEnviar = document.getElementById('btnEnviar');
+    const textoOriginal = btnEnviar.innerHTML;
+    btnEnviar.innerHTML = '⏳ Guardando...';
+    btnEnviar.disabled = true;
+
+    const mensaje = `Hola Alexander y Astrid, confirmo mi asistencia a su boda ❤️\n\nNombre: ${nombre}\nTeléfono: ${telefono || 'No especificado'}\nInvitados: ${invitados}`;
+    const urlWhatsApp = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+    const ventanaWhatsApp = window.open(urlWhatsApp, '_blank');
+    if (ventanaWhatsApp) ventanaWhatsApp.opener = null;
+    
+    // Guardar en Google Sheets
+    fetch(URL_GOOGLE_SHEETS, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            nombre: nombre,
+            telefono: telefono || 'No especificado',
+            invitados: invitados,
+            mensaje: 'Confirmación desde la web'
+        })
+    })
+    .then(() => {
+        document.getElementById('rsvpStatus').textContent = ventanaWhatsApp
+            ? 'WhatsApp está abierto. Envía el mensaje para completar la confirmación.'
+            : 'Permite las ventanas emergentes para abrir WhatsApp y enviar tu confirmación.';
+        
+        // Resetear todo
+        document.getElementById('rsvpForm').style.display = 'none';
+        document.getElementById('btnConfirmar').style.display = 'inline-flex';
+        document.getElementById('nombre').value = '';
+        document.getElementById('telefono').value = '';
+        document.getElementById('invitados').value = '1';
+    })
+    .catch(() => {
+        document.getElementById('rsvpStatus').textContent = ventanaWhatsApp
+            ? 'WhatsApp está abierto. Envía el mensaje para completar la confirmación.'
+            : 'Permite las ventanas emergentes para abrir WhatsApp y enviar tu confirmación.';
+        
+        document.getElementById('rsvpForm').style.display = 'none';
+        document.getElementById('btnConfirmar').style.display = 'inline-flex';
+        document.getElementById('nombre').value = '';
+        document.getElementById('telefono').value = '';
+        document.getElementById('invitados').value = '1';
+    })
+    .finally(() => {
+        btnEnviar.innerHTML = textoOriginal;
+        btnEnviar.disabled = false;
+    });
+}
+// =============================================================
+// INICIALIZAR TODO CUANDO LA PÁGINA CARGA
+// =============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    configurarBotonMusica();
+    // Inicializar efecto reveal en galería
+    initGaleriaReveal();
+});

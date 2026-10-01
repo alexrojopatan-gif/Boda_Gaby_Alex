@@ -3,331 +3,407 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alexander & Astid - Nuestra Boda</title>
+    <title>Alexander &amp; Astrid | Nuestra Boda</title>
+    <meta name="description" content="Te invitamos a celebrar nuestro amor en una boda inolvidable. Sábado 23 de enero de 2027." />
+    <meta name="theme-color" content="#253d30" />
 
-    <!-- Meta tags para compartir en redes -->
-    <meta property="og:title" content="Alexander & Astrid - Nuestra Boda" />
-    <meta property="og:description" content="Te invitamos a celebrar nuestro amor. 23 de enero de 2027" />
-    <meta property="og:image" content="assets/img/foto1.jpg" />
-    <meta property="og:url" content="https://tudominio.com" />
+    <!-- Open Graph para compartir en WhatsApp y redes sociales -->
+    <meta property="og:title" content="Alexander &amp; Astrid - Nuestra Boda" />
+    <meta property="og:description" content="Celebra con nosotros este momento inolvidable. Sábado 23 de enero de 2027 en Santa María de Jesús." />
+    <meta property="og:image" content="assets/img/foto3.jpg" />
+    <meta property="og:type" content="website" />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesome (iconos) -->
+    <!-- Font Awesome (Iconos elegantes) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-    <!-- CSS principal -->
+    <!-- CSS Principal -->
     <link rel="stylesheet" href="styles.css" />
 </head>
-
 
 <body>
 
     <!-- ============================================================ -->
     <!-- BOTÓN DE MÚSICA (flotante)                                    -->
     <!-- ============================================================ -->
-    <div id="musicControl" class="music-btn">
-        <i class="fas fa-music"></i>
-        <span class="music-tooltip">Reproducir música</span>
-    </div>
-
-<!-- ============================================================ -->
-<!-- SECCIÓN HERO - CORREGIDA (orden correcto)                    -->
-<!-- ============================================================ -->
-<section id="hero" class="hero-section" style="background-image: url('assets/img/foto1.jpg'); background-size: cover; background-position: center;">
-    
-    <!-- Capa oscura -->
-    <div class="hero-overlay-light"></div>
-    
-    <!-- Contenido centrado -->
-    <div class="hero-content-new">
-        
-        <!-- 1️⃣ BADGE (arriba) -->
-        <p class="hero-badge-new">✦ Con la bendición de Dios y de nuestros padres ✦</p>
-        
-        <!-- 2️⃣ NOMBRES -->
-        <h1 class="hero-names-new">
-            Alexander <span class="ampersand-new">&amp;</span> Astrid
-        </h1>
-        
-        <!-- 3️⃣ DIVISOR (línea decorativa) -->
-        <div class="hero-divider-new">
-            <span class="line-new"></span>
-            <span class="diamond-new">◆</span>
-            <span class="line-new"></span>
-        </div>
-        
-        <!-- 4️⃣ SUBTÍTULO (DEBE IR ANTES DEL SCROLL) -->
-        <p class="hero-subtitle-new">"Queremos vivir este momento rodeado de familia y amigos, será un honor contar con tu presencia. Porque juntos somos mejores, hemos decidido caminar de la mano para siempre. "</p>
-        
-        <!-- 5️⃣ SCROLL (ABAJO - DESPUÉS DEL SUBTÍTULO) -->
-        <div class="hero-scroll-new">
-            <span>Descubre nuestra historia</span>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        
-    </div>
-    
-    <!-- Pétalos -->
-    <div id="petals-container"></div>
-    
-</section>
+    <button id="musicControl" class="music-btn" type="button" aria-label="Reproducir música" title="Reproducir música">
+        <i class="fas fa-music" aria-hidden="true"></i>
+        <span class="music-tooltip" aria-hidden="true">Reproducir música</span>
+    </button>
 
     <!-- ============================================================ -->
-    <!-- SECCIÓN DETALLES - FECHA, LUGAR, MAPA                       -->
+    <!-- PÉTALOS Y HOJAS FLOTANTES (Jardín con Vida)                   -->
+    <!-- ============================================================ -->
+    <div id="petals-container" aria-hidden="true"></div>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN HERO - PORTADA LUMINOSA                              -->
+    <!-- ============================================================ -->
+    <header id="hero" class="hero-section">
+        <div class="hero-overlay-light"></div>
+        
+        <div class="hero-content-new">
+            <!-- Badge con Bendición -->
+            <p class="hero-badge-new">Con la bendición de Dios y de nuestros padres</p>
+            
+            <!-- Nombres Principales -->
+            <h1 class="hero-names-new">
+                <span>Alexander</span>
+                <span class="ampersand-new">&amp;</span>
+                <span>Astrid</span>
+            </h1>
+            
+            <!-- Divisor de Oro y Hoja -->
+            <div class="hero-divider-new" aria-hidden="true">
+                <span class="line-new"></span>
+                <span class="ornament-icon"><i class="fas fa-leaf"></i></span>
+                <span class="line-new"></span>
+            </div>
+            
+            <!-- Subtítulo Emocional -->
+            <p class="hero-subtitle-new">
+                "El amor no se mira con los ojos, sino con el alma. Queremos vivir este momento rodeados de nuestros seres más queridos para comenzar nuestro camino juntos."
+            </p>
+            
+            <!-- Indicador de Scroll -->
+            <a href="#detalles" class="hero-scroll-new" aria-label="Ver detalles de la boda">
+                <span>Descubre los detalles</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <!-- Guirnalda de Acuarela Transición -->
+        <div class="hero-garland-divider" aria-hidden="true">
+            <img src="assets/img/garland.png" alt="" />
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN DETALLES - FECHA, LUGAR, MAPA, ITINERARIO            -->
     <!-- ============================================================ -->
     <section id="detalles" class="section-detalles">
         <div class="container">
-            <div class="detalles-card glass-effect">
-                <div class="detalles-header">
-                    <span class="detalles-icon">🌿</span>
-                    <h2>Nuestro Gran Día</h2>
-                    <span class="detalles-icon">🌿</span>
+            
+            <div class="section-header">
+                <span class="section-pretitle">
+                    <i class="fas fa-seedling" aria-hidden="true"></i> Acompáñanos a Celebrar
+                </span>
+                <h2 class="section-title">Nuestro Gran Día</h2>
+                <div class="section-divider" aria-hidden="true">
+                    <span class="line"></span>
+                    <i class="fas fa-leaf leaf-icon"></i>
+                    <span class="line"></span>
                 </div>
+                <p class="section-subtitle">
+                    Una celebración inolvidable para compartir nuestro amor rodeados de las personas más especiales de nuestras vidas
+                </p>
+            </div>
 
+            <div class="detalles-card">
+                <!-- Esquinas decorativas doradas -->
+                <div class="corner-flourish tl" aria-hidden="true"></div>
+                <div class="corner-flourish tr" aria-hidden="true"></div>
+                <div class="corner-flourish bl" aria-hidden="true"></div>
+                <div class="corner-flourish br" aria-hidden="true"></div>
+
+                <!-- Grilla de Detalles -->
                 <div class="detalles-grid">
                     <!-- Fecha -->
                     <div class="detalle-item">
-                        <div class="detalle-icon"><i class="far fa-calendar-alt"></i></div>
-                        <div class="detalle-info">
-                            <span class="detalle-label">Fecha</span>
-                            <span class="detalle-valor">Sábado 23 de enero de 2027</span>
+                        <div class="detalle-icon-wrap">
+                            <i class="far fa-calendar-alt" aria-hidden="true"></i>
                         </div>
+                        <span class="detalle-label">Fecha</span>
+                        <h3 class="detalle-valor">23 de Enero de 2027</h3>
+                        <span class="detalle-direccion">Sábado por la tarde</span>
                     </div>
 
                     <!-- Hora -->
                     <div class="detalle-item">
-                        <div class="detalle-icon"><i class="far fa-clock"></i></div>
-                        <div class="detalle-info">
-                            <span class="detalle-label">Hora</span>
-                            <span class="detalle-valor">15:00 p.m.</span>
+                        <div class="detalle-icon-wrap">
+                            <i class="far fa-clock" aria-hidden="true"></i>
                         </div>
+                        <span class="detalle-label">Hora</span>
+                        <h3 class="detalle-valor">15:00 Horas</h3>
+                        <span class="detalle-direccion">Recepción puntual</span>
                     </div>
 
                     <!-- Lugar -->
                     <div class="detalle-item">
-                        <div class="detalle-icon"><i class="fas fa-map-pin"></i></div>
-                        <div class="detalle-info">
-                            <span class="detalle-label">Lugar</span>
-                            <span class="detalle-valor">Salón Vella Vista</span>
-                            <span class="detalle-direccion">Santa María de Jesús</span>
+                        <div class="detalle-icon-wrap">
+                            <i class="fas fa-map-location-dot" aria-hidden="true"></i>
                         </div>
+                        <span class="detalle-label">Lugar de la Celebración</span>
+                        <h3 class="detalle-valor">Salón Vella Vista</h3>
+                        <span class="detalle-direccion">Santa María de Jesús, Sacatepéquez</span>
                     </div>
                 </div>
 
-                <!-- Botón Google Maps -->
-                <a href="https://maps.google.com/?q=Salón+Vella+Vista+Santa+María+de+Jesús" target="_blank" class="btn-maps">
-                    <i class="fas fa-location-dot"></i> Ver en Google Maps
-                    <span class="btn-ripple"></span>
-                </a>
+                <!-- Botones de Acción: Mapa y Calendario -->
+                <div class="detalles-actions">
+                    <a href="https://maps.google.com/?q=Salón+Vella+Vista+Santa+María+de+Jesús" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        <i class="fas fa-location-dot" aria-hidden="true"></i> Ver en Google Maps
+                    </a>
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+de+Alexander+%26+Astrid&dates=20270123T210000Z/20270124T050000Z&details=Celebremos+juntos+el+matrimonio+de+Alexander+%26+Astrid.+Lugar:+Sal%C3%B3n+Vella+Vista,+Santa+Mar%C3%ADa+de+Jes%C3%BAs&location=Sal%C3%B3n+Vella+Vista,+Santa+Mar%C3%ADa+de+Jes%C3%BAs" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                        <i class="far fa-calendar-plus" aria-hidden="true"></i> Agregar a mi Calendario
+                    </a>
+                </div>
+
+                <!-- Código de Vestimenta Integrado -->
+                <div class="dresscode-wrapper">
+                    <span class="dresscode-badge">
+                        <i class="fas fa-vest" aria-hidden="true"></i> Etiqueta
+                    </span>
+                    <h4 class="dresscode-title">Formal Elegante</h4>
+                    <p class="dresscode-text">
+                        Te sugerimos vestir con tu mejor atuendo formal para celebrar juntos este momento tan especial. <em>(Color blanco reservado con cariño para la novia).</em>
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================ -->
-<!-- SECCIÓN CUENTA REGRESIVA - VERSIÓN ELEGANTE                 -->
-<!-- ============================================================ -->
-<section id="countdown" class="section-countdown">
-    <div class="container">
-        
-        <!-- TÍTULO ELEGANTE SIN FLORES -->
-        <div class="countdown-header">
-            <span class="countdown-decorator">—</span>
-            <h2>Faltan</h2>
-            <span class="countdown-decorator">—</span>
-        </div>
-
-        <!-- CUENTA REGRESIVA -->
-        <div class="countdown-grid" id="countdownGrid">
-            <div class="countdown-item">
-                <span class="countdown-number" id="days">00</span>
-                <span class="countdown-label">Días</span>
-            </div>
-            <div class="countdown-item">
-                <span class="countdown-number" id="hours">00</span>
-                <span class="countdown-label">Horas</span>
-            </div>
-            <div class="countdown-item">
-                <span class="countdown-number" id="minutes">00</span>
-                <span class="countdown-label">Minutos</span>
-            </div>
-            <div class="countdown-item">
-                <span class="countdown-number" id="seconds">00</span>
-                <span class="countdown-label">Segundos</span>
-            </div>
-        </div>
-
-        <!-- MENSAJE FINAL -->
-        <div class="countdown-mensaje">
-            <p>Para celebrar nuestro amor</p>
-        </div>
-    </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECCIÓN GALERÍA - UNA IMAGEN POR FILA (TIPO REVELACIÓN)    -->
-<!-- ============================================================ -->
-<section id="galeria" class="section-galeria">
-    <div class="container">
-        
-        <!-- HEADER ELEGANTE -->
-        <div class="galeria-header">
-            <span class="galeria-decorator">—</span>
-            <h2>Nuestros Momentos</h2>
-            <span class="galeria-decorator">—</span>
-            <p class="galeria-sub">Cada foto guarda un pedacito de nuestra historia</p>
-        </div>
-
-        <!-- GALERÍA - UNA IMAGEN POR FILA -->
-        <div class="galeria-grid">
-            <!-- Foto 1 -->
-            <div class="galeria-item" data-src="assets/img/foto1.jpg">
-                <img src="assets/img/foto1.jpg" alt="Alexander y Astid - Foto 1" loading="lazy" />
-                <div class="galeria-overlay">
-                    <i class="fas fa-expand"></i>
-                    <span>Ver más</span>
+    <!-- SECCIÓN CUENTA REGRESIVA - PABELLÓN LUMINOSO                -->
+    <!-- ============================================================ -->
+    <section id="countdown" class="section-countdown">
+        <div class="container">
+            <div class="countdown-card">
+                <div class="section-header" style="margin-bottom: 30px;">
+                    <span class="section-pretitle">
+                        <i class="fas fa-heart" aria-hidden="true"></i> Cada Segundo Cuenta
+                    </span>
+                    <h2 class="section-title">El Gran Momento <span class="script-accent">Se Acerca</span></h2>
+                    <div class="section-divider" aria-hidden="true">
+                        <span class="line"></span>
+                        <i class="fas fa-leaf leaf-icon"></i>
+                        <span class="line"></span>
+                    </div>
                 </div>
-            </div>
-            <!-- Foto 2 -->
-            <div class="galeria-item" data-src="assets/img/foto2.jpg">
-                <img src="assets/img/foto2.jpg" alt="Alexander y Astid - Foto 2" loading="lazy" />
-                <div class="galeria-overlay">
-                    <i class="fas fa-expand"></i>
-                    <span>Ver más</span>
+
+                <!-- Contadores de Tiempo -->
+                <div class="countdown-grid" id="countdownGrid">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
                 </div>
-            </div>
-            <!-- Foto 3 -->
-            <div class="galeria-item" data-src="assets/img/foto3.jpg">
-                <img src="assets/img/foto3.jpg" alt="Alexander y Astid - Foto 3" loading="lazy" />
-                <div class="galeria-overlay">
-                    <i class="fas fa-expand"></i>
-                    <span>Ver más</span>
-                </div>
-            </div>
-            <!-- Foto 4 -->
-            <div class="galeria-item" data-src="assets/img/foto4.jpg">
-                <img src="assets/img/foto4.jpg" alt="Alexander y Astid - Foto 4" loading="lazy" />
-                <div class="galeria-overlay">
-                    <i class="fas fa-expand"></i>
-                    <span>Ver más</span>
+
+                <div class="countdown-mensaje">
+                    <p>"Para celebrar nuestro amor"</p>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECCIÓN GALERÍA - NUESTRA HISTORIA EN IMÁGENES              -->
+    <!-- ============================================================ -->
+    <section id="galeria" class="section-galeria">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-pretitle">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i> Nuestra Historia
+                </span>
+                <h2 class="section-title">Nuestros Momentos</h2>
+                <div class="section-divider" aria-hidden="true">
+                    <span class="line"></span>
+                    <i class="fas fa-leaf leaf-icon"></i>
+                    <span class="line"></span>
+                </div>
+                <p class="section-subtitle">
+                    Cada imagen atesora un pedacito de nuestra historia, complicidad y amor
+                </p>
+            </div>
+
+            <!-- Grilla Editorial de 6 Fotos -->
+            <div class="galeria-grid">
+                <!-- Foto 1 (Destacada: Arco Colonial y Cielo) -->
+                <button class="galeria-item featured" type="button" aria-label="Ampliar foto: Bajo el Cielo Colonial" data-index="0">
+                    <img src="assets/img/foto3.jpg" alt="Alexander y Astrid - Bajo el Cielo Colonial" loading="lazy" />
+                    <div class="galeria-overlay">
+                        <span class="galeria-tag">Bajo el Cielo Colonial</span>
+                        <span class="zoom-hint"><i class="fas fa-expand" aria-hidden="true"></i> Ver en grande</span>
+                    </div>
+                </button>
+
+                <!-- Foto 2 (El Anillo de Compromiso) -->
+                <button class="galeria-item" type="button" aria-label="Ampliar foto: El Sí, Para Siempre" data-index="1">
+                    <img src="assets/img/IMG_5490.png" alt="El anillo de compromiso de Alexander y Astrid" loading="lazy" />
+                    <div class="galeria-overlay">
+                        <span class="galeria-tag">El Sí, Para Siempre</span>
+                        <span class="zoom-hint"><i class="fas fa-expand" aria-hidden="true"></i> Ver en grande</span>
+                    </div>
+                </button>
+
+                <!-- Foto 3 (Abrazo en la Naturaleza) -->
+                <button class="galeria-item" type="button" aria-label="Ampliar foto: Amor en la Naturaleza" data-index="2">
+                    <img src="assets/img/dvdvd.jpeg" alt="Alexander y Astrid abrazados rodeados de naturaleza" loading="lazy" />
+                    <div class="galeria-overlay">
+                        <span class="galeria-tag">Amor Incondicional</span>
+                        <span class="zoom-hint"><i class="fas fa-expand" aria-hidden="true"></i> Ver en grande</span>
+                    </div>
+                </button>
+
+                <!-- Foto 4 (Retrato Romántico) -->
+                <button class="galeria-item" type="button" aria-label="Ampliar foto: Miradas Cómplices" data-index="3">
+                    <img src="assets/img/foto1.jpg" alt="Alexander y Astrid - Miradas Cómplices" loading="lazy" />
+                    <div class="galeria-overlay">
+                        <span class="galeria-tag">Miradas Cómplices</span>
+                        <span class="zoom-hint"><i class="fas fa-expand" aria-hidden="true"></i> Ver en grande</span>
+                    </div>
+                </button>
+
+                <!-- Foto 5 (Juntos en los escalones) -->
+                <button class="galeria-item" type="button" aria-label="Ampliar foto: Caminando Juntos" data-index="4">
+                    <img src="assets/img/foto4.jpg" alt="Alexander y Astrid sentados en los escalones" loading="lazy" />
+                    <div class="galeria-overlay">
+                        <span class="galeria-tag">Nuestros Pasos</span>
+                        <span class="zoom-hint"><i class="fas fa-expand" aria-hidden="true"></i> Ver en grande</span>
+                    </div>
+                </button>
+
+                <!-- Foto 6 (Sonrisas y Complicidad) -->
+                <button class="galeria-item" type="button" aria-label="Ampliar foto: Sonrisas y Alegría" data-index="5">
+                    <img src="assets/img/foto2.jpg" alt="Alexander y Astrid sonriendo juntos" loading="lazy" />
+                    <div class="galeria-overlay">
+                        <span class="galeria-tag">Sonrisas y Amor</span>
+                        <span class="zoom-hint"><i class="fas fa-expand" aria-hidden="true"></i> Ver en grande</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- ============================================================ -->
     <!-- LIGHTBOX PARA GALERÍA                                       -->
     <!-- ============================================================ -->
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <img class="lightbox-content" id="lightboxImg" />
-        <span class="lightbox-nav prev"><i class="fas fa-chevron-left"></i></span>
-        <span class="lightbox-nav next"><i class="fas fa-chevron-right"></i></span>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Galería de fotos de la boda" aria-hidden="true">
+        <button class="lightbox-close" type="button" aria-label="Cerrar galería">&times;</button>
+        <img class="lightbox-content" id="lightboxImg" alt="" />
+        <button class="lightbox-nav prev" type="button" aria-label="Foto anterior">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button class="lightbox-nav next" type="button" aria-label="Foto siguiente">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+        </button>
     </div>
 
+    <!-- ============================================================ -->
+    <!-- SECCIÓN RSVP - CONFIRMACIÓN DE ASISTENCIA                   -->
+    <!-- ============================================================ -->
+    <section id="rsvp" class="section-rsvp">
+        <div class="container">
+            <div class="rsvp-card">
+                <!-- Decoración de Rombo y Líneas -->
+                <div class="rsvp-decoracion" aria-hidden="true">
+                    <span></span>
+                </div>
 
-<!-- ============================================================ -->
-<!-- SECCIÓN RSVP - UN SOLO BOTÓN CON FORMULARIO EMERGENTE       -->
-<!-- ============================================================ -->
-<section id="rsvp" class="section-rsvp">
-    <div class="container">
-        <div class="rsvp-card glass-effect">
-            
-            <!-- Decoración elegante -->
-            <div class="rsvp-decoracion">
-                <span class="filigrana">❧</span>
-                <span class="filigrana">☙</span>
-                <span class="filigrana">❧</span>
-            </div>
-            
-            <h2>Confirmar Asistencia</h2>
-            
-            <p class="rsvp-text">
-                Tu presencia es el mejor regalo que podemos recibir.<br />
-                Confírmanos antes del <strong>10 de enero de 2027</strong>
-            </p>
+                <span class="section-pretitle">
+                    <i class="fas fa-envelope-open-text" aria-hidden="true"></i> Tu Presencia es Nuestro Regalo
+                </span>
+                <h2>Confirmar Asistencia</h2>
+                
+                <p class="rsvp-text">
+                    Será un verdadero honor celebrar este momento a tu lado.<br />
+                    Por favor confírmanos antes del <strong>10 de enero de 2027</strong>.
+                </p>
 
-            <!-- ===== BOTÓN PRINCIPAL ===== -->
-            <button id="btnConfirmar" class="btn-rsvp btn-whatsapp">
-                <i class="fas fa-check"></i> Confirmar Asistencia
-            </button>
+                <!-- Botones Principales para Confirmar (Novio o Novia) -->
+                <div class="rsvp-buttons-group">
+                    <button id="btnConfirmarNovio" class="btn-rsvp btn-whatsapp" type="button">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Confirmar con el Novio
+                    </button>
+                    <button id="btnConfirmarNovia" class="btn-rsvp btn-whatsapp" type="button">
+                        <i class="fab fa-whatsapp" aria-hidden="true"></i> Confirmar con la Novia
+                    </button>
+                </div>
 
-            <!-- ===== FORMULARIO EMERGENTE (oculto inicialmente) ===== -->
-            <div id="rsvpForm" class="rsvp-form-container" style="display: none;">
-                <div class="rsvp-form-inner">
-                    <p class="rsvp-form-titulo">💐 Completa tus datos</p>
-                    
-                    <input type="text" id="nombre" placeholder="Tu nombre completo" required />
-                    <input type="tel" id="telefono" placeholder="Tu número de teléfono (opcional)" />
-                    <input type="number" id="invitados" placeholder="Número de invitados" min="1" value="1" />
-                    
-                    <div class="rsvp-form-buttons">
-                        <button id="btnEnviar" class="btn-rsvp btn-whatsapp" style="flex:1;">
-                            <i class="fas fa-check"></i> Confirmar
-                        </button>
-                        <button id="btnCancelar" class="btn-rsvp btn-cancelar" style="flex:0.5;">
-                            <i class="fas fa-times"></i>
-                        </button>
+                <!-- Formulario Emergente -->
+                <div id="rsvpForm" class="rsvp-form-container" style="display: none;">
+                    <div class="rsvp-form-inner">
+                        <p class="rsvp-form-titulo" id="rsvpFormTitulo">Confirmar Asistencia</p>
+                        
+                        <!-- Selector de Destinatario dentro del formulario -->
+                        <div class="rsvp-destinatario-wrap" aria-label="Selecciona con quién confirmar">
+                            <label class="rsvp-destinatario-label">
+                                <input type="radio" name="destinatario" value="novio" checked />
+                                <span>Al Novio (Alexander)</span>
+                            </label>
+                            <label class="rsvp-destinatario-label">
+                                <input type="radio" name="destinatario" value="novia" />
+                                <span>A la Novia (Astrid)</span>
+                            </label>
+                        </div>
+                        
+                        <label for="nombre">Nombre Completo *</label>
+                        <input type="text" id="nombre" name="nombre" placeholder="Ej. Carlos Morales" autocomplete="name" required />
+                        
+                        <label for="telefono">Teléfono / WhatsApp (opcional)</label>
+                        <input type="tel" id="telefono" name="telefono" placeholder="Ej. +502 1234 5678" autocomplete="tel" />
+                        
+                        <label for="invitados">Cantidad de Invitados que Asistirán</label>
+                        <input type="number" id="invitados" name="invitados" min="1" max="10" value="1" />
+                        
+                        <div class="rsvp-form-buttons">
+                            <button id="btnEnviar" class="btn-rsvp btn-whatsapp" type="button" style="flex: 1.5;">
+                                <i class="fas fa-check" aria-hidden="true"></i> Enviar Confirmación
+                            </button>
+                            <button id="btnCancelar" class="btn-rsvp btn-cancelar" type="button" style="flex: 1;">
+                                <i class="fas fa-times" aria-hidden="true"></i> Cancelar
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Código de vestimenta -->
-            <div class="rsvp-codigo">
-                <span class="rsvp-label">Código de vestimenta:</span>
-                <span class="rsvp-valor">✨ Etiqueta formal ✨</span>
+                <!-- Mensaje de Estado -->
+                <p id="rsvpStatus" class="rsvp-status" role="status" aria-live="polite"></p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- ============================================================ -->
-    <!-- FOOTER                                                       -->
+    <!-- PIE DE PÁGINA (FOOTER)                                      -->
     <!-- ============================================================ -->
     <footer class="footer">
+        <div class="footer-garland" aria-hidden="true">
+            <img src="assets/img/garland.png" alt="" />
+        </div>
+
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-corazones">
-                    <span>💕</span>
-                    <span>💖</span>
-                    <span>💕</span>
-                </div>
-                <p class="footer-mensaje">
-                    "Gracias por ser parte de este día único en nuestras vidas"
-                </p>
-                <p class="footer-copy">
-                    Alexander & Astid · 23 de enero de 2027
-                </p>
-                <div class="footer-social">
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                </div>
-            </div>
+            <p class="footer-mensaje">
+                "Gracias por ser parte de nuestra historia y acompañarnos en el día más feliz de nuestras vidas"
+            </p>
+            <p class="footer-copy">
+                Alexander &amp; Astrid · 23 de Enero de 2027
+            </p>
+            <p class="footer-venue">
+                Salón Vella Vista · Santa María de Jesús, Sacatepéquez, Guatemala
+            </p>
         </div>
     </footer>
 
     <!-- ============================================================ -->
-    <!-- SCRIPTS                                                      -->
+    <!-- REPRODUCTOR DE MÚSICA & SCRIPTS                             -->
     <!-- ============================================================ -->
-    <script src="script.js"></script>
-        <!-- ============================================================ -->
-    <!-- REPRODUCTOR DE YOUTUBE (oculto)                              -->
-    <!-- ============================================================ -->
-    <div id="youtube-player"></div>
-
-    <!-- FORMULARIO RSVP CON EXCEL
-<div class="rsvp-form">
-    <input type="text" id="nombre" placeholder="Tu nombre completo" required />
-    <input type="tel" id="telefono" placeholder="Tu número de teléfono" />
-    <input type="number" id="invitados" placeholder="Número de invitados" />
-    <button onclick="guardarConfirmacion()" class="btn-rsvp btn-whatsapp">
-        <i class="fas fa-check"></i> Confirmar Asistencia
-    </button>
-</div> -->
-
-    <!-- Cargar la API de YouTube -->
+    <audio id="weddingAudio" src="assets/audio/musica.mp3" preload="auto" loop></audio>
+    <div id="youtube-player" style="position: fixed; width: 1px; height: 1px; bottom: 0; left: 0; opacity: 0.01; pointer-events: none; z-index: -1;"></div>
     <script src="script.js"></script>
 </body>
-</html>
