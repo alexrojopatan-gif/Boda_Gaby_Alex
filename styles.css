@@ -72,6 +72,7 @@ body {
         radial-gradient(circle at 90% 40%, rgba(247, 238, 216, 0.5) 0%, transparent 40%),
         radial-gradient(circle at 20% 75%, rgba(238, 207, 202, 0.35) 0%, transparent 45%),
         radial-gradient(circle at 85% 95%, rgba(213, 229, 219, 0.4) 0%, transparent 40%);
+    /* background-attachment: fixed causa bugs en iOS Safari - se desactiva en móvil con media query */
     background-attachment: fixed;
     color: var(--texto-oscuro);
     overflow-x: hidden;
@@ -219,15 +220,29 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-image: url('assets/img/foto3.jpg');
-    background-size: cover;
-    background-position: center 32%;
-    background-repeat: no-repeat;
+    /* La imagen va en un pseudo-elemento para controlar posición independientemente */
+    background: transparent;
     padding: 60px 20px 100px;
     overflow: hidden;
 }
 
-/* Capa luminosa con degradado suave para que la foto se integre al jardín claro */
+/* Imagen de fondo del hero como pseudo-elemento - funciona en iOS/Android */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/img/foto3.jpg');
+    background-size: cover;
+    background-position: center 32%;
+    background-repeat: no-repeat;
+    z-index: 0;
+    /* Desenfoque sutil para efecto premium */
+    filter: blur(0px);
+    transform: scale(1);
+    transition: filter 0.6s ease;
+}
+
+/* Capa luminosa con degradado suave */
 .hero-overlay-light {
     position: absolute;
     inset: 0;
@@ -1470,7 +1485,32 @@ body {
     }
 }
 
+/* ================================================================ */
+/* FIXES ESPECÍFICOS PARA MÓVILES - Hero fondo idéntico a escritorio */
+/* ================================================================ */
 @media (max-width: 768px) {
+    /* Desactivar background-attachment: fixed en iOS/Android (causa bugs) */
+    body {
+        background-attachment: scroll;
+    }
+
+    /* Ajustar posición de imagen hero: centrar verticalmente en la pareja */
+    .hero-section::after {
+        background-position: center 25%;
+        /* En móvil portrait, queremos ver el centro de la imagen */
+    }
+
+    /* Overlay levemente más oscuro en móvil para que el texto sea legible */
+    .hero-overlay-light {
+        background: linear-gradient(
+            180deg,
+            rgba(20, 38, 28, 0.50) 0%,
+            rgba(20, 38, 28, 0.30) 35%,
+            rgba(15, 28, 20, 0.52) 70%,
+            rgba(250, 248, 245, 0.97) 97%,
+            var(--fondo-principal) 100%
+        );
+    }
     .hero-names-new {
         font-size: 3.8rem;
     }
@@ -1542,6 +1582,10 @@ body {
 }
 
 @media (max-width: 480px) {
+    /* En pantallas muy pequeñas: centrar más abajo para ver la cara de la pareja */
+    .hero-section::after {
+        background-position: center 30%;
+    }
     .hero-names-new {
         font-size: 3rem;
     }

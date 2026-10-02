@@ -12,8 +12,8 @@ const CONFIG = {
     urlGoogleSheets: 'https://script.google.com/macros/s/AKfycbw5MfQHE5iVo-hzCxuEvRNZc3zXPF_Pqn6cpzkmq1d523vbC2muUdv18mVT5Ebfbqa3vA/exec',
     fotos: [
         { src: 'assets/img/foto3.jpg', title: 'Bajo el Cielo Colonial' },
-        { src: 'assets/img/IMG_5490.png', title: 'El Sí, Para Siempre' },
-        { src: 'assets/img/dvdvd.jpeg', title: 'Amor Incondicional' },
+        { src: 'assets/img/foto5.png', title: 'El Sí, Para Siempre' },
+        { src: 'assets/img/foto6.jpeg', title: 'Amor Incondicional' },
         { src: 'assets/img/foto1.jpg', title: 'Miradas Cómplices' },
         { src: 'assets/img/foto4.jpg', title: 'Nuestros Pasos' },
         { src: 'assets/img/foto2.jpg', title: 'Sonrisas y Amor' }
@@ -488,7 +488,7 @@ function procesarRSVP() {
     const nombreDestinatario = esNovia ? 'Astrid' : 'Alexander';
     const numeroWhatsApp = esNovia ? CONFIG.numeroWhatsAppNovia : CONFIG.numeroWhatsAppNovio;
 
-    const mensajeWhatsApp = `¡Hola ${nombreDestinatario}! Confirmo con mucho gusto mi asistencia a su boda 🤍💍\n\nNombre: ${nombre}\nTeléfono: ${telefono || 'No especificado'}\nTotal de Invitados: ${invitados}\n\n¡Felicidades y muchas bendiciones!`;
+    const mensajeWhatsApp = `¡Hola ${nombreDestinatario}! Confirmo con mucho gusto mi asistencia a su boda 🫶😊\n\nNombre: ${nombre}\nTeléfono: ${telefono || 'No especificado'}\nTotal de Invitados: ${invitados}\n\n¡Felicidades y muchas bendiciones!`;
     const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensajeWhatsApp)}`;
     const ventanaWhatsApp = window.open(urlWhatsApp, '_blank');
     if (ventanaWhatsApp) ventanaWhatsApp.opener = null;
