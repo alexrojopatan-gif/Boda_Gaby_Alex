@@ -7,7 +7,7 @@ const CONFIG = {
     fotos: [
         'assets/img/foto1.jpg',
         'assets/img/foto2.jpg',
-        'assets/img/foto3.jpg',
+        'assets/img/foto03.jpg',
         'assets/img/foto4.jpg'
     ]
 };

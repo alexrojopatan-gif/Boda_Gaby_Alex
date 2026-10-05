@@ -231,7 +231,7 @@ body {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('assets/img/foto3.jpg');
+    background-image: url('assets/img/foto03.jpg');
     background-size: cover;
     background-position: center 32%;
     background-repeat: no-repeat;

@@ -11,12 +11,12 @@ const CONFIG = {
     numeroWhatsAppNovia: '50247810905',
     urlGoogleSheets: 'https://script.google.com/macros/s/AKfycbw5MfQHE5iVo-hzCxuEvRNZc3zXPF_Pqn6cpzkmq1d523vbC2muUdv18mVT5Ebfbqa3vA/exec',
     fotos: [
-        { src: 'assets/img/foto3.jpg', title: 'Bajo el Cielo Colonial' },
-        { src: 'assets/img/foto5.png', title: 'El Sí, Para Siempre' },
-        { src: 'assets/img/foto6.jpeg', title: 'Amor Incondicional' },
-        { src: 'assets/img/foto1.jpg', title: 'Miradas Cómplices' },
-        { src: 'assets/img/foto4.jpg', title: 'Nuestros Pasos' },
-        { src: 'assets/img/foto2.jpg', title: 'Sonrisas y Amor' }
+        { src: 'assets/img/foto01.jpg', title: 'Miradas Cómplices' },
+        { src: 'assets/img/foto02.jpg', title: 'Sonrisas y Amor' },
+        { src: 'assets/img/foto03.jpg', title: 'Bajo el Cielo Colonial' },
+        { src: 'assets/img/foto04.jpg', title: 'Nuestros Pasos' },
+        { src: 'assets/img/foto05.png', title: 'El Sí, Para Siempre' },
+        { src: 'assets/img/foto06.jpeg', title: 'Amor Incondicional' }
     ]
 };
 

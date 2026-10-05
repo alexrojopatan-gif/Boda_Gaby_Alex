@@ -199,7 +199,7 @@
             </button>
             <!-- Foto 3 -->
             <button class="galeria-item" type="button" aria-label="Ampliar foto 3 de Alexander y Astrid">
-                <img src="assets/img/foto3.jpg" alt="Alexander y Astrid - Foto 3" loading="lazy" />
+                <img src="assets/img/foto03.jpg" alt="Alexander y Astrid - Foto 3" loading="lazy" />
                 <div class="galeria-overlay">
                     <i class="fas fa-expand"></i>
                     <span>Ver más</span>
