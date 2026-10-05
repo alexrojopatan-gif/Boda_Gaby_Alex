@@ -6,7 +6,7 @@ const CONFIG = {
     fechaBoda: new Date('2027-01-23T15:00:00'),
     novios: 'Alexander & Astrid',
     idVideoYouTube: '98Akpf1ph2o',
-    archivoAudio: 'assets/audio/musica.mp3',
+    archivoAudio: 'assets/audio/musica01.mp3',
     numeroWhatsAppNovio: '50232665826',
     numeroWhatsAppNovia: '50247810905',
     urlGoogleSheets: 'https://script.google.com/macros/s/AKfycbw5MfQHE5iVo-hzCxuEvRNZc3zXPF_Pqn6cpzkmq1d523vbC2muUdv18mVT5Ebfbqa3vA/exec',
